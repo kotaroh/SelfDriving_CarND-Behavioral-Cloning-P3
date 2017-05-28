@@ -10,17 +10,6 @@ The goals / steps of this project are the following:
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
 
-
-[//]: # (Image References)
-
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
-
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
@@ -79,31 +68,11 @@ As described above, Nvidia architecture was adopted.
 
 ####3. Creation of the Training Set & Training Process
 
-My original understanding was that by providing enough data to a correct architecture the simulator would be well trained and failure of the navigation means lack of data. With this assumption, I added more and more data per failure. At the end, I added around 20 laps and 30 data sets, including driving in reverse and recovery from the edge.
-The number of images used for the training at that point was more than 150k. It was not possible to process those images on my local machine, so I used a machine with GPU on AWS. At the beginning I used an instance with
+My original understanding was that  the simulator would be well trained by providing enough data to a correct architecture and failure of the navigation means lack of data. With this assumption, I added more and more data per failure. At the end, I added around 20 laps and 30 data sets, including driving in reverse and recovery from the edge. The number of images used for the training I used was more than 150k. 
 
-o capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+It was not possible to process those images on my local machine, so I used a machine with GPU on AWS. At the beginning I used an instance with 8GB memory, then I upgraded to one with 48GB memory.
 
-![alt text][image2]
+However, even with the volume of data, my simulator kept failing to navigate one full lap. I thought it should be because of overfitting and then added dropout layers and changed the rate for dropout, but the result did not change.
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+After three weeks of tries, I switched back to just the sample data from the project without any dropout, which made one lap succeeded. I learned that it is still challenging to recognize how much data is enough and what the best parameter set is.
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
