@@ -8,9 +8,7 @@ augmented_images, augmented_measurements = [],[]
 
 #current_paths = ['./Data2/test/','./data/','./Data2/Test5/', './Data2/Test7/','./Data2/Test8/','./Data2/Test9/','./Data2/Test10/','./Data2/Test11/','./Data2/Test12/','./Data2/Test2/','./Data2/Test3/','./Data2/Test4/','./Data2/Test6/','./Data2/Test13/','./Data2/Test14/','./Data2/Test15/','./Data2/Test16/','./Data2/Test17/','./Data2/Test18/','./Data2/Test19/','./Data2/Test20/','./Data2/Test21/','./Data2/Test22/','./Data2/Test23/','./Data2/Test24/','./Data2/Test25/','./Data2/Test26/','./Data2/Test27/','./Data2/Test28/','./Data2/Test29/','./Data2/Test30/','./Data2/Test31/','./Data2/Test32/']
 
-#current_paths = ['./Data2/Test13/','./Data2/Test14/','./Data2/Test15/','./Data2/Test16/','./Data2/Test17/','./Data2/Test18/','./Data2/Test19/','./Data2/Test20/','./Data2/Test21/','./Data2/Test22/','./Data2/Test23/','./Data2/Test24/','./Data2/Test25/','./Data2/Test26/','./Data2/Test27/','./Data2/Test28/','./Data2/Test29/','./Data2/Test30/','./Data2/Test31/','./Data2/Test32/']
-
-current_paths = ['./data/']
+current_paths = ['./data/','./Data2/Test14/','./Data2/Test15/','./Data2/Test16/','./Data2/Test17/','./Data2/Test18/','./Data2/Test19/','./Data2/Test20/','./Data2/Test21/','./Data2/Test22/','./Data2/Test23/','./Data2/Test24/','./Data2/Test25/','./Data2/Test26/','./Data2/Test27/','./Data2/Test28/','./Data2/Test29/','./Data2/Test30/','./Data2/Test31/','./Data2/Test32/']
 
 #load data
 for current_path in current_paths:
@@ -69,5 +67,5 @@ model.add(Dense(1))
 
 model.compile(loss='mse',optimizer='adam')
 model.fit(X_train,y_train,validation_split=0.2,shuffle=True, nb_epoch=4)
-
-model.save('model.h5')
+#model.summary()
+model.save('model.h5.2')
