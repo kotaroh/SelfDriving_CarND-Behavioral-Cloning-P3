@@ -12,6 +12,7 @@ augmented_images, augmented_measurements = [],[]
 
 current_paths = ['./data/']
 
+#load data
 for current_path in current_paths:
     lines = []
     csv_path = current_path + 'driving_log.csv'
@@ -31,7 +32,7 @@ for current_path in current_paths:
         measurement = float(line[3])
         measurements.append(measurement)
 
-
+#increase the training data by fliping images
 for image, measurement in zip(images, measurements):
     augmented_images.append(image)
     augmented_measurements.append(measurement)
@@ -42,6 +43,7 @@ X_train = np.array(augmented_images)
 #X_train = X_train.reshape(X_train.shape[0], 160, 320, 1)
 y_train = np.array(augmented_measurements)    
 
+#Use the Nvidia model
 from keras.models import Sequential
 from keras.layers.core import Flatten, Dense, Lambda,Dropout
 from keras.layers.convolutional import Convolution2D, Cropping2D
@@ -64,22 +66,6 @@ model.add(Dense(100))
 model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
-'''
-
-model = Sequential()
-model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape = (160,320,3)))
-model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3)))
-model.add(Convolution2D(6, 5, 5, activation = 'relu'))
-model.add(Dropout(0.85))
-model.add(MaxPooling2D())
-model.add(Convolution2D(6,5,5,activation = 'relu'))
-model.add(Dropout(0.85))
-model.add(MaxPooling2D())
-model.add(Flatten())
-model.add(Dense(128))
-model.add(Dense(84))
-model.add(Dense(1))
-'''
 
 model.compile(loss='mse',optimizer='adam')
 model.fit(X_train,y_train,validation_split=0.2,shuffle=True, nb_epoch=4)
