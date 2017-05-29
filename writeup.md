@@ -13,6 +13,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [image1]: ./output_images/original.jpg
 [image2]: ./output_images/crop.jpg
+[image3]: ./output_images/datadistribution.png
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
@@ -55,7 +56,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 ####4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. The sample data added to the project was used as a starting point. Also, images are cropped to avoid the scenaries impacts to the training.
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. The sample data added to the project was used as a starting point. Also, images are cropped to avoid the scenaries impacting to the training.
 
 Original image:
 
@@ -111,11 +112,14 @@ Non-trainable params: 0
 
 ####3. Creation of the Training Set & Training Process
 
-My original understanding was that  the simulator would be well trained by providing enough data to a correct architecture and failure of the navigation means lack of data. With this assumption, I added more and more data per failure. At the end, I added around 20 laps and 30 data sets, including driving in reverse and recovery from the edge. The number of images used for the training I used was more than 150k. 
+My original understanding was that  the simulator would be well trained by providing enough data to a correct architecture and failure of the navigation means lack of data. With this assumption, I added more and more data per failure. At the end, I added around 20 laps and 30 data sets, including driving in reverse and recovery from the edge. 
 
 It was not possible to process those images on my local machine, so I used a machine with GPU on AWS. At the beginning I used an instance with 8GB memory, then I upgraded to one with 48GB memory.
 
 However, even with the volume of data, my simulator kept failing to navigate one full lap. I thought it should be because of overfitting and then added dropout layers and changed the rate for dropout, but the result did not change.
 
-Then I dropped some data which 
+Then I checked the data and simulator again and realized that the small change of the angle impacts to the vehicle direction a lot when the speed is fast. That is, our model can control the vehicle more by driving slowly, same as actual vehicle. After the finding, I dropped some data which were created by driving too fast. By removing such data, the model gets better and I was able to navigate the vehicle for one whole lap. The number of images used for the training I used was more than 100k. 
 
+The following graph shows the distribution of angles in the data used for the training.The graph was created with datashow.py.
+
+![alt text][image3]
