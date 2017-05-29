@@ -22,16 +22,21 @@ for current_path in current_paths:
     csv_path = current_path + 'driving_log.csv'
     print(csv_path)
     
-    df = pd.read_csv(csv_path,usecols=[3],names = ["Angle"])
+    df = pd.read_csv(csv_path,usecols=[3],names = ["angle"])
 
     df_list.append(df)
 
 result = pd.concat(df_list)
-data = result.groupby(pd.cut(result['Angle'], ranges)).count()
+range_list = pd.cut(result['angle'], ranges)
+data = result.groupby(range_list).count()
+data.index.name = 'Angle range'
 print(data)
+p = data.plot(legend = False,kind = 'bar')
+p.set_ylabel("Count")
 
-#p = ggplot(aes(x="Angle", weight="Angle"), data) + geom_bar()
-#ggsave(p,filename = 'test.png')
-#p.save('test.png')
+fig = p.get_figure()
+fig.tight_layout()
+fig.savefig('test.png')
+
 
                                 
