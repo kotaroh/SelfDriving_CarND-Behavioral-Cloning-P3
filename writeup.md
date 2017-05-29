@@ -10,6 +10,9 @@ The goals / steps of this project are the following:
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
 
+[//]: # (Image References)
+[image1]: ./output_images/original.jpg
+[image2]: ./output_images/crop.jpg
 ## Rubric Points
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
@@ -54,6 +57,13 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road. The sample data added to the project was used as a starting point. Also, images are cropped to avoid the scenaries impacts to the training.
 
+Original image:
+
+![alt text][image1]
+
+Cropped image:
+
+![alt text][image2]
 
 
 ###Model Architecture and Training Strategy
